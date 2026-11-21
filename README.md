@@ -5,10 +5,10 @@ App Android (Kotlin + Jetpack Compose + Material 3) con arquitectura **MVVM**, *
 **Problema:** la Tienda Departamental Rincón Sur tiene 4 accesos y quiere saber cuántas personas entran, por dónde, y cuántas **solo transitan** (salen sin comprar). La persona encargada inicia sesión y registra cada entrada (check-in) y cada salida (check-out).
 
 ## Integrantes
-- [Nombre y apellido integrante 1]
-- [Nombre y apellido integrante 2]
+- [DEIBER]
+- [FRANCISCO SANCHEZ]
 
-Equipo N°: [número] · Trello: [enlace al tablero] · GitHub: [enlace al repositorio]
+Equipo N°: [5] ·
 
 ## Abrir y ejecutar
 1. Android Studio → *Open* → carpeta `RinconSur`.
