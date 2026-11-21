@@ -73,4 +73,17 @@ object Validaciones {
     /** Un turno de noche puede cruzar la medianoche, por eso solo se exige que sean distintas. */
     fun validarHorario(inicio: String, fin: String): String? =
         if (inicio == fin) "La hora de término debe ser distinta" else null
+
+    // ---------------- Comunicados (API Rest) ----------------
+    fun validarTitulo(titulo: String): String? = when {
+        titulo.isBlank() -> "El título es obligatorio"
+        titulo.trim().length < 3 -> "Mínimo 3 caracteres"
+        else -> null
+    }
+
+    fun validarCuerpo(cuerpo: String): String? = when {
+        cuerpo.isBlank() -> "El mensaje es obligatorio"
+        cuerpo.trim().length < 5 -> "Mínimo 5 caracteres"
+        else -> null
+    }
 }

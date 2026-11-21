@@ -82,6 +82,10 @@ dependencies {
     // Coil (mostrar fotos tomadas)
     implementation(libs.coil.compose)
 
+    // Retrofit y Gson Converter (API Rest, Guía 14). Las corrutinas ya estaban arriba.
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
     // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -16,6 +16,7 @@ Equipo N°: [número] · Trello: [enlace al tablero] · GitHub: [enlace al repos
 3. Ejecutar en un dispositivo/emulador con cámara (minSdk 26).
 4. Login de prueba: **encargado@rinconsur.cl / rincon123** (se crea al abrir la BD, vía `RoomDatabase.Callback`). También se puede crear una cuenta nueva.
 5. Recorrido sugerido: Login → Parámetros → Registrar entrada (con foto) → Registrar salida → Historial → Inicio.
+6. API Rest: menú lateral → **Comunicados (API Rest)** (necesita internet).
 
 ## Estructura (MVVM)
 ```
@@ -23,13 +24,16 @@ app/src/main/java/com/rinconsur/app/
 ├── MainActivity.kt                (punto de entrada, crea los ViewModels)
 ├── repository/                    (Model)
 │   ├── data/      AppDatabase.kt, UserDao.kt, AccesoDao.kt, ParametrosDao.kt, RegistroDao.kt   (Room)
-│   └── models/    User.kt, Acceso.kt, Parametros.kt, Registro.kt                              (Entidades)
-├── viewmodels/    LoginViewModel.kt, UserViewModel.kt, RegistroViewModel.kt, ParametrosViewModel.kt, Validaciones.kt
+│   ├── models/    User.kt, Acceso.kt, Parametros.kt, Registro.kt, Post.kt                     (Entidades + modelo API)
+│   ├── remote/    ApiService.kt, RetrofitInstance.kt                                          (Retrofit, API Rest)
+│   └── PostRepository.kt                                                                      (repositorio de la API)
+├── viewmodels/    LoginViewModel.kt, UserViewModel.kt, RegistroViewModel.kt, ParametrosViewModel.kt, PostViewModel.kt, Validaciones.kt
 ├── navegations/   AppNavigation.kt (Routes, menú lateral, NavHost)
 └── view/          theme/Theme.kt
     ├── utils/     CameraCapture.kt, PhotoBox.kt, CamposFormulario.kt, Vibracion.kt, Animations.kt
     └── ui/        LoginScreen.kt, RegisterScreen.kt, HomeScreen.kt,
-                   CheckInScreen.kt, CheckOutScreen.kt, HistorialScreen.kt, EditarRegistroScreen.kt, ParametrosScreen.kt
+                   CheckInScreen.kt, CheckOutScreen.kt, HistorialScreen.kt, EditarRegistroScreen.kt, ParametrosScreen.kt,
+                   PostScreen.kt
 ```
 
 ## Base de datos (Room / SQLite)
@@ -55,6 +59,7 @@ app/src/main/java/com/rinconsur/app/
 | Animación 3 | Transiciones `slideIntoContainer/slideOutOfContainer` del `NavHost` |
 | Animación 4 | `ContadorAnimado` (`AnimatedContent`) en los números del Inicio |
 | Otras animaciones | `AnimatedVisibility` (errores, acompañante, avisos), `animateColorAsState` (Check-out), `animateItem` (Historial) |
+| API Rest (Guía 14) | Retrofit + Gson + corrutinas contra `https://jsonplaceholder.typicode.com/posts`: `Post.kt` → `ApiService.kt` (GET, POST, PUT, DELETE) → `RetrofitInstance.kt` → `PostRepository.kt` → `PostViewModel.kt` → `PostScreen.kt` (menú "Comunicados (API Rest)"). Permiso `INTERNET` en el Manifest. Detalle en `API-REST.md` |
 | CRUD | Crear (check-in), leer (Inicio/Historial), actualizar (check-out, parámetros, **editar registro** con el lápiz del Historial), eliminar (Historial) |
 
 ## Notas

@@ -10,6 +10,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.filled.Login
 import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.filled.Campaign
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
@@ -54,6 +55,7 @@ import com.rinconsur.app.view.ui.HistorialScreen
 import com.rinconsur.app.view.ui.HomeScreen
 import com.rinconsur.app.view.ui.LoginScreen
 import com.rinconsur.app.view.ui.ParametrosScreen
+import com.rinconsur.app.view.ui.PostScreen
 import com.rinconsur.app.view.ui.RegisterScreen
 import com.rinconsur.app.view.utils.navEnterTransition
 import com.rinconsur.app.view.utils.navExitTransition
@@ -61,6 +63,7 @@ import com.rinconsur.app.view.utils.navPopEnterTransition
 import com.rinconsur.app.view.utils.navPopExitTransition
 import com.rinconsur.app.viewmodels.LoginViewModel
 import com.rinconsur.app.viewmodels.ParametrosViewModel
+import com.rinconsur.app.viewmodels.PostViewModel
 import com.rinconsur.app.viewmodels.RegistroViewModel
 import com.rinconsur.app.viewmodels.UserViewModel
 import kotlinx.coroutines.launch
@@ -74,6 +77,7 @@ object Routes {
     const val CHECK_OUT = "check_out"
     const val HISTORIAL = "historial"
     const val PARAMETROS = "parametros"
+    const val POSTS = "comunicados"                   // pantalla de la API Rest (Guía 14)
     const val EDITAR = "editar_registro/{id}"          // ruta con argumento: el id del registro
     fun editar(id: Int) = "editar_registro/$id"        // arma la ruta real, ej: "editar_registro/5"
 }
@@ -86,7 +90,8 @@ val menuItems = listOf(
     MenuItem(Routes.CHECK_IN, "Registrar entrada", Icons.AutoMirrored.Filled.Login),
     MenuItem(Routes.CHECK_OUT, "Registrar salida", Icons.AutoMirrored.Filled.ExitToApp),
     MenuItem(Routes.HISTORIAL, "Historial", Icons.Default.History),
-    MenuItem(Routes.PARAMETROS, "Parámetros del puesto", Icons.Default.Settings)
+    MenuItem(Routes.PARAMETROS, "Parámetros del puesto", Icons.Default.Settings),
+    MenuItem(Routes.POSTS, "Comunicados (API Rest)", Icons.Default.Campaign)
 )
 
 private fun titleFor(route: String?): String = when (route) {
@@ -96,6 +101,7 @@ private fun titleFor(route: String?): String = when (route) {
     Routes.CHECK_OUT -> "Check-out"
     Routes.HISTORIAL -> "Historial"
     Routes.PARAMETROS -> "Parámetros"
+    Routes.POSTS -> "Comunicados (API Rest)"
     Routes.EDITAR -> "Editar registro"
     else -> ""
 }
@@ -106,7 +112,8 @@ fun AppNavigation(
     loginViewModel: LoginViewModel,
     userViewModel: UserViewModel,
     registroViewModel: RegistroViewModel,
-    parametrosViewModel: ParametrosViewModel
+    parametrosViewModel: ParametrosViewModel,
+    postViewModel: PostViewModel
 ) {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -223,6 +230,7 @@ fun AppNavigation(
                 userViewModel = userViewModel,
                 registroViewModel = registroViewModel,
                 parametrosViewModel = parametrosViewModel,
+                postViewModel = postViewModel,
                 currentUserName = loginState.loggedUser?.name ?: "",
                 parametros = parametros,
                 onNavigateTopLevel = ::navigateTopLevel
@@ -239,6 +247,7 @@ private fun AppNavHost(
     userViewModel: UserViewModel,
     registroViewModel: RegistroViewModel,
     parametrosViewModel: ParametrosViewModel,
+    postViewModel: PostViewModel,
     currentUserName: String,
     parametros: Parametros?,
     onNavigateTopLevel: (String) -> Unit
@@ -306,6 +315,10 @@ private fun AppNavHost(
         }
         composable(Routes.PARAMETROS) {
             ParametrosScreen(viewModel = parametrosViewModel)
+        }
+        // API REST (Guía 14): comunicados desde jsonplaceholder con Retrofit
+        composable(Routes.POSTS) {
+            PostScreen(viewModel = postViewModel)
         }
     }
 }
