@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="220" viewBox="0 0 720 220" role="img" aria-labelledby="title desc">
+  <title id="title">rinconsur</title>
+  <desc id="desc">Logo de rinconsur, control de accesos</desc>
+  <defs>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E9684A"/>
+      <stop offset="1" stop-color="#F2B134"/>
+    </linearGradient>
+  </defs>
+  <rect x="18" y="18" width="184" height="184" rx="46" fill="url(#mark)"/>
+  <text x="110" y="102" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="58" font-weight="900">R</text>
+  <text x="110" y="160" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="58" font-weight="900">S</text>
+  <text x="246" y="112" fill="#17324D" font-family="Arial, sans-serif" font-size="74" font-weight="700" letter-spacing="2">rinconsur</text>
+  <text x="250" y="158" fill="#66707A" font-family="Arial, sans-serif" font-size="22" font-weight="600" letter-spacing="3">CONTROL DE ACCESOS</text>
+</svg>
